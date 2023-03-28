@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp">
+
+
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/image_view_recipe_food"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_launcher_background"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:roundPercent="0.3" />
+
+
+        <TextView
+            android:id="@+id/text_view_recipe_food_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:ellipsize="end"
+            android:gravity="center|start"
+            android:maxLines="2"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/image_view_recipe_food"
+            app:layout_constraintTop_toTopOf="@+id/image_view_recipe_food"
+            tools:text="Spicy Tomato Rice (Recipe) Spicy Tomato Rice" />
+
+
+        <TextView
+            android:id="@+id/text_view_cuisine_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/image_view_recipe_food"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="@+id/text_view_recipe_food_name"
+            tools:text="indian" />
+
+        <TextView
+            android:id="@+id/text_view_timer_meal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/text_view_cuisine_name"
+            app:layout_constraintEnd_toEndOf="@+id/text_view_recipe_food_name"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintTop_toTopOf="@+id/text_view_cuisine_name"
+            tools:text="5 m" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
