@@ -8,16 +8,19 @@ import com.example.nestedrecyclerview.databinding.*
 import com.example.nestedrecyclerview.ui.adapter.viewholder.AdviceHolder
 import com.example.nestedrecyclerview.ui.adapter.viewholder.RecentFoodHolder
 import com.example.nestedrecyclerview.ui.adapter.viewholder.RecipeFoodHolder
-import com.example.nestedrecyclerview.ui.base.BaseParentAdapter
+import com.example.nestedrecyclerview.ui.base.BaseNestedRecyclerAdapter
 import com.example.nestedrecyclerview.ui.base.ParentInteractionListener
 
-class ParentAdapter(private val listener: ParentInteractionListener) : BaseParentAdapter() {
+class HomeAdapter(private val listener: ParentInteractionListener) :
+    BaseNestedRecyclerAdapter<ParentItem>() {
+
+    override fun sortItem(item: ParentItem) = item.rank
 
     override fun getViewHolder(
         inflater: LayoutInflater,
         parent: ViewGroup,
         viewType: Int
-    ): BaseParentViewHolder {
+    ): BaseNestedRecyclerViewHolder {
         return when (viewType) {
             TYPE_ADVICE -> AdviceHolder(
                 ItemRecyclerViewAdviceBinding.inflate(
@@ -41,24 +44,24 @@ class ParentAdapter(private val listener: ParentInteractionListener) : BaseParen
         }
     }
 
-    override fun getTypeView(parentItem: ParentItem): Int {
-        return when (parentItem) {
+    override fun getTypeView(item: ParentItem): Int {
+        return when (item) {
             is ParentItem.Advice -> TYPE_ADVICE
             is ParentItem.RecentFood -> TYPE_RECENT_FOOD
             is ParentItem.RecipeFood -> TYPE_RECIPE_FOOD
         }
     }
 
-    override fun bindItem(holder: BaseParentViewHolder, parentItem: ParentItem) {
-        when (parentItem) {
+    override fun bindItem(holder: BaseNestedRecyclerViewHolder, item: ParentItem) {
+        when (item) {
             is ParentItem.Advice -> {
-                (holder as AdviceHolder).bind(parentItem.advices)
+                (holder as AdviceHolder).bind(item.advices)
             }
             is ParentItem.RecentFood -> {
-                (holder as RecentFoodHolder).bind(parentItem.recipes)
+                (holder as RecentFoodHolder).bind(item.recipes)
             }
             is ParentItem.RecipeFood -> {
-                (holder as RecipeFoodHolder).bind(parentItem.recipes)
+                (holder as RecipeFoodHolder).bind(item.recipes)
             }
         }
     }

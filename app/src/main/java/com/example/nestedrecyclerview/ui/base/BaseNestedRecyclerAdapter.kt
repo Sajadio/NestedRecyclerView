@@ -5,20 +5,20 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
-import com.example.nestedrecyclerview.data.ParentItem
 
 
-abstract class BaseParentAdapter : RecyclerView.Adapter<BaseParentAdapter.BaseParentViewHolder>() {
+abstract class BaseNestedRecyclerAdapter<T : Any> :
+    RecyclerView.Adapter<BaseNestedRecyclerAdapter.BaseNestedRecyclerViewHolder>() {
 
-    private val itemsNested = mutableListOf<ParentItem>()
+    private val itemsNested = mutableListOf<T>()
+
+    abstract fun sortItem(item: T): Int
 
     @SuppressLint("NotifyDataSetChanged")
-    fun addNestedItem(newItems: ParentItem) {
+    fun addNestedItem(newItems: T) {
         itemsNested.apply {
             add(newItems)
-            sortBy {
-                it.rank
-            }
+            sortBy { sortItem(it) }
         }
         notifyDataSetChanged()
     }
@@ -27,28 +27,28 @@ abstract class BaseParentAdapter : RecyclerView.Adapter<BaseParentAdapter.BasePa
         inflater: LayoutInflater,
         parent: ViewGroup,
         viewType: Int,
-    ): BaseParentViewHolder
+    ): BaseNestedRecyclerViewHolder
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseParentViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseNestedRecyclerViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return getViewHolder(inflater, parent, viewType)
     }
 
-    abstract fun bindItem(holder: BaseParentViewHolder, parentItem: ParentItem)
+    abstract fun bindItem(holder: BaseNestedRecyclerViewHolder, item: T)
 
-    override fun onBindViewHolder(holder: BaseParentViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: BaseNestedRecyclerViewHolder, position: Int) {
         bindItem(holder, itemsNested[position])
     }
 
     override fun getItemCount() = itemsNested.size
 
-    abstract fun getTypeView(parentItem: ParentItem): Int
+    abstract fun getTypeView(item: T): Int
 
     override fun getItemViewType(position: Int): Int {
         return getTypeView(itemsNested[position])
     }
 
-    abstract class BaseParentViewHolder(val binding: ViewBinding) :
+    abstract class BaseNestedRecyclerViewHolder(val binding: ViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
         abstract fun bind(item: Any? = null)
     }

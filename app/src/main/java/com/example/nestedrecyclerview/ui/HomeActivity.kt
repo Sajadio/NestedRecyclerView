@@ -7,7 +7,7 @@ import com.example.nestedrecyclerview.R
 import com.example.nestedrecyclerview.data.DataSource
 import com.example.nestedrecyclerview.data.ParentItem
 import com.example.nestedrecyclerview.databinding.ActivityHomeBinding
-import com.example.nestedrecyclerview.ui.adapter.ParentAdapter
+import com.example.nestedrecyclerview.ui.adapter.HomeAdapter
 import com.example.nestedrecyclerview.ui.base.ParentInteractionListener
 
 class HomeActivity : AppCompatActivity(), ParentInteractionListener {
@@ -24,10 +24,10 @@ class HomeActivity : AppCompatActivity(), ParentInteractionListener {
     }
 
     private fun setupParentRecyclerView() {
-        binding.recyclerViewParent.adapter = ParentAdapter(this)
-        (binding.recyclerViewParent.adapter as ParentAdapter).apply {
-            this.addNestedItem(ParentItem.Advice(DataSource.getAdvices()))
+        binding.recyclerViewHome.adapter = HomeAdapter(this)
+        (binding.recyclerViewHome.adapter as HomeAdapter).apply {
             this.addNestedItem(ParentItem.RecentFood(DataSource.getRecipes()))
+            this.addNestedItem(ParentItem.Advice(DataSource.getAdvices()))
             this.addNestedItem(ParentItem.RecipeFood(DataSource.getRecipes()))
         }
     }

@@ -3,11 +3,11 @@ package com.example.nestedrecyclerview.ui.adapter.viewholder
 import com.example.nestedrecyclerview.data.Recipe
 import com.example.nestedrecyclerview.databinding.ItemRecyclerViewRecentFoodBinding
 import com.example.nestedrecyclerview.ui.adapter.RecentFoodAdapter
-import com.example.nestedrecyclerview.ui.base.BaseParentAdapter
+import com.example.nestedrecyclerview.ui.base.BaseNestedRecyclerAdapter
 import com.example.nestedrecyclerview.ui.base.ParentInteractionListener
 
 class RecentFoodHolder(binding: ItemRecyclerViewRecentFoodBinding, private val listener: ParentInteractionListener) :
-    BaseParentAdapter.BaseParentViewHolder(binding) {
+    BaseNestedRecyclerAdapter.BaseNestedRecyclerViewHolder(binding) {
     override fun bind(item: Any?) {
         with(binding as ItemRecyclerViewRecentFoodBinding) {
             val adapter = RecentFoodAdapter()
