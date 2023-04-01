@@ -13,7 +13,7 @@ import com.example.nestedrecyclerview.ui.base.ParentInteractionListener
 
 class ParentAdapter(private val listener: ParentInteractionListener) : BaseParentAdapter() {
 
-    override fun getBindingViewHolder(
+    override fun getViewHolder(
         inflater: LayoutInflater,
         parent: ViewGroup,
         viewType: Int

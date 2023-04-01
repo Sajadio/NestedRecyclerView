@@ -23,7 +23,7 @@ abstract class BaseParentAdapter : RecyclerView.Adapter<BaseParentAdapter.BasePa
         notifyDataSetChanged()
     }
 
-    abstract fun getBindingViewHolder(
+    abstract fun getViewHolder(
         inflater: LayoutInflater,
         parent: ViewGroup,
         viewType: Int,
@@ -31,7 +31,7 @@ abstract class BaseParentAdapter : RecyclerView.Adapter<BaseParentAdapter.BasePa
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseParentViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return getBindingViewHolder(inflater, parent, viewType)
+        return getViewHolder(inflater, parent, viewType)
     }
 
     abstract fun bindItem(holder: BaseParentViewHolder, parentItem: ParentItem)
