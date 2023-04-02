@@ -9,6 +9,7 @@ import com.example.nestedrecyclerview.data.ParentItem
 import com.example.nestedrecyclerview.databinding.ActivityHomeBinding
 import com.example.nestedrecyclerview.ui.adapter.HomeAdapter
 import com.example.nestedrecyclerview.ui.base.ParentInteractionListener
+import com.example.nestedrecyclerview.utils.toRecipe
 
 class HomeActivity : AppCompatActivity(), ParentInteractionListener {
 
@@ -26,9 +27,15 @@ class HomeActivity : AppCompatActivity(), ParentInteractionListener {
     private fun setupParentRecyclerView() {
         binding.recyclerViewHome.adapter = HomeAdapter(this)
         (binding.recyclerViewHome.adapter as HomeAdapter).apply {
-            this.addNestedItem(ParentItem.RecentFood(DataSource.getRecipes()))
-            this.addNestedItem(ParentItem.Advice(DataSource.getAdvices()))
-            this.addNestedItem(ParentItem.RecipeFood(DataSource.getRecipes()))
+
+            val nestedItem = mutableListOf<ParentItem>()
+            nestedItem.addAll(DataSource.getRecipes().map { it.toRecipe() })
+            nestedItem.add(ParentItem.Advice(DataSource.getAdvices()))
+            nestedItem.add(ParentItem.RecentFood(DataSource.getRecipes()))
+
+            this.addNestedItem(nestedItem)
+            this.addNestedItem(nestedItem)
+            this.addNestedItem(nestedItem)
         }
     }
 

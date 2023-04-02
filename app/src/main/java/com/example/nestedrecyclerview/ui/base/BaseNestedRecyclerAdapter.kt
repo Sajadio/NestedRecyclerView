@@ -10,18 +10,19 @@ import androidx.viewbinding.ViewBinding
 abstract class BaseNestedRecyclerAdapter<T : Any> :
     RecyclerView.Adapter<BaseNestedRecyclerAdapter.BaseNestedRecyclerViewHolder>() {
 
-    private val itemsNested = mutableListOf<T>()
+    private var nestedItems = mutableListOf<T>()
 
     abstract fun sortItem(item: T): Int
 
     @SuppressLint("NotifyDataSetChanged")
-    fun addNestedItem(newItems: T) {
-        itemsNested.apply {
-            add(newItems)
+    fun addNestedItem(newItems: MutableList<T>) {
+        nestedItems = newItems
+        nestedItems.apply {
             sortBy { sortItem(it) }
         }
         notifyDataSetChanged()
     }
+
 
     abstract fun getViewHolder(
         inflater: LayoutInflater,
@@ -37,15 +38,15 @@ abstract class BaseNestedRecyclerAdapter<T : Any> :
     abstract fun bindItem(holder: BaseNestedRecyclerViewHolder, item: T)
 
     override fun onBindViewHolder(holder: BaseNestedRecyclerViewHolder, position: Int) {
-        bindItem(holder, itemsNested[position])
+        bindItem(holder, nestedItems[position])
     }
 
-    override fun getItemCount() = itemsNested.size
+    override fun getItemCount() = nestedItems.size
 
     abstract fun getTypeView(item: T): Int
 
     override fun getItemViewType(position: Int): Int {
-        return getTypeView(itemsNested[position])
+        return getTypeView(nestedItems[position])
     }
 
     abstract class BaseNestedRecyclerViewHolder(val binding: ViewBinding) :

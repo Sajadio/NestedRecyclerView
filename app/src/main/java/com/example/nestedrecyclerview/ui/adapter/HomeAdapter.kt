@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import com.example.nestedrecyclerview.R
 import com.example.nestedrecyclerview.data.ParentItem
 import com.example.nestedrecyclerview.databinding.*
+import com.example.nestedrecyclerview.databinding.ItemCardViewRecipeFoodBinding
 import com.example.nestedrecyclerview.ui.adapter.viewholder.AdviceHolder
 import com.example.nestedrecyclerview.ui.adapter.viewholder.RecentFoodHolder
 import com.example.nestedrecyclerview.ui.adapter.viewholder.RecipeFoodHolder
@@ -37,7 +38,7 @@ class HomeAdapter(private val listener: ParentInteractionListener) :
             }
             else -> {
                 RecipeFoodHolder(
-                    ItemRecyclerViewRecipeBinding.inflate(inflater, parent, false),
+                    ItemCardViewRecipeFoodBinding.inflate(inflater, parent, false),
                     listener
                 )
             }
@@ -58,10 +59,10 @@ class HomeAdapter(private val listener: ParentInteractionListener) :
                 (holder as AdviceHolder).bind(item.advices)
             }
             is ParentItem.RecentFood -> {
-                (holder as RecentFoodHolder).bind(item.recipes)
+                (holder as RecentFoodHolder).bind(item.recent)
             }
             is ParentItem.RecipeFood -> {
-                (holder as RecipeFoodHolder).bind(item.recipes)
+                (holder as RecipeFoodHolder).bind(item.recipe)
             }
         }
     }
@@ -69,7 +70,7 @@ class HomeAdapter(private val listener: ParentInteractionListener) :
 
     companion object {
         const val TYPE_ADVICE = R.layout.item_recycler_view_advice
-        const val TYPE_RECENT_FOOD = R.layout.item_card_view_recent_food
+        const val TYPE_RECENT_FOOD = R.layout.item_recycler_view_recent_food
         const val TYPE_RECIPE_FOOD = R.layout.item_card_view_recipe_food
     }
 }
